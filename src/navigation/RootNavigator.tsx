@@ -3,33 +3,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
-import { AuthStackParamList } from './types';
+import { AuthStackParamList, CoachStackParamList, MemberStackParamList } from './types';
 
+// Auth screens
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RoleSelectScreen from '../screens/auth/RoleSelectScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import SignInScreen from '../screens/auth/SignInScreen';
 
-// Placeholder until coach/member screens are built
-import { Text, StyleSheet } from 'react-native';
-function PlaceholderScreen({ label }: { label: string }) {
-  return (
-    <View style={placeholder.container}>
-      <Text style={placeholder.text}>{label}</Text>
-    </View>
-  );
-}
-const placeholder = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0a0a0a',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: { color: '#fff', fontSize: 20 },
-});
+// Coach screens
+import GroupDashboardScreen from '../screens/coach/GroupDashboardScreen';
+import CreateChallengeScreen from '../screens/coach/CreateChallengeScreen';
+
+// Member screens
+import HomeScreen from '../screens/member/HomeScreen';
+import LogWorkoutScreen from '../screens/member/LogWorkoutScreen';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+const CoachStack = createNativeStackNavigator<CoachStackParamList>();
+const MemberStack = createNativeStackNavigator<MemberStackParamList>();
 
 function AuthNavigator() {
   return (
@@ -39,6 +31,83 @@ function AuthNavigator() {
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
       <AuthStack.Screen name="SignIn" component={SignInScreen} />
     </AuthStack.Navigator>
+  );
+}
+
+function CoachNavigator() {
+  return (
+    <CoachStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#0a0a0a' },
+        headerTintColor: '#fff',
+        headerShadowVisible: false,
+      }}
+    >
+      <CoachStack.Screen
+        name="GroupDashboard"
+        component={GroupDashboardScreen}
+        options={{ headerShown: false }}
+      />
+      <CoachStack.Screen
+        name="CreateChallenge"
+        component={CreateChallengeScreen}
+        options={{ title: 'New Challenge' }}
+      />
+      <CoachStack.Screen
+        name="MemberProfile"
+        component={() => null}
+        options={{ title: 'Athlete' }}
+      />
+      <CoachStack.Screen
+        name="ChallengeResults"
+        component={() => null}
+        options={{ title: 'Results' }}
+      />
+    </CoachStack.Navigator>
+  );
+}
+
+function MemberNavigator() {
+  return (
+    <MemberStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#0a0a0a' },
+        headerTintColor: '#fff',
+        headerShadowVisible: false,
+      }}
+    >
+      <MemberStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+      <MemberStack.Screen
+        name="LogWorkout"
+        component={LogWorkoutScreen}
+        options={{ title: 'Log Workout' }}
+      />
+      <MemberStack.Screen
+        name="ActiveChallenges"
+        component={() => null}
+        options={{ title: 'Challenges' }}
+      />
+      <MemberStack.Screen
+        name="SubmitChallenge"
+        component={() => null}
+        options={{ title: 'Submit' }}
+      />
+      <MemberStack.Screen
+        name="DomainDetail"
+        component={() => null}
+        options={{ title: 'Domain' }}
+      />
+      <MemberStack.Screen
+        name="WorkoutHistory"
+        component={() => null}
+        options={{ title: 'History' }}
+      />
+      <MemberStack.Screen
+        name="GroupLeaderboard"
+        component={() => null}
+        options={{ title: 'Leaderboard' }}
+      />
+    </MemberStack.Navigator>
   );
 }
 
@@ -65,9 +134,9 @@ export default function RootNavigator() {
       {!session || !profile ? (
         <AuthNavigator />
       ) : profile.role === 'coach' ? (
-        <PlaceholderScreen label="Coach Dashboard (coming next)" />
+        <CoachNavigator />
       ) : (
-        <PlaceholderScreen label="Member Home (coming next)" />
+        <MemberNavigator />
       )}
     </NavigationContainer>
   );
