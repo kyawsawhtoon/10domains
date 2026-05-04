@@ -10,18 +10,27 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.92.0",
+    "@supabase/supabase-js": "^2.105.1",
     "expo": "~54.0.33",
+    "expo-apple-authentication": "^55.0.13",
+    "expo-secure-store": "^55.0.13",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
     "react-native": "0.81.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@types/react": "~19.1.0",
-    "typescript": "~5.9.2",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.1",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.0",
     "lint-staged": "^15.2.0",
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0"
+    "prettier": "^3.8.3",
+    "typescript": "~5.9.2"
   },
   "private": true,
   "lint-staged": {
