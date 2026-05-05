@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Polygon, Line, Circle, Text as SvgText } from 'react-native-svg';
 import { DomainKey, DomainScores, DOMAIN_LABELS, ALL_DOMAINS } from '../../types/database.types';
 
@@ -7,11 +7,17 @@ interface Props {
   scores: Partial<DomainScores>;
   size?: number;
   accentColor?: string;
+  onDomainPress?: (domain: DomainKey) => void;
 }
 
 const TICKS = 5; // concentric rings
 
-export default function RadarChart({ scores, size = 280, accentColor = '#22c55e' }: Props) {
+export default function RadarChart({
+  scores,
+  size = 280,
+  accentColor = '#22c55e',
+  onDomainPress,
+}: Props) {
   const center = size / 2;
   const radius = size * 0.38;
   const labelRadius = size * 0.48;
@@ -109,12 +115,18 @@ export default function RadarChart({ scores, size = 280, accentColor = '#22c55e'
       {/* Score legend */}
       <View style={styles.legend}>
         {ALL_DOMAINS.map((d) => (
-          <View key={d} style={styles.legendRow}>
+          <TouchableOpacity
+            key={d}
+            style={styles.legendRow}
+            onPress={() => onDomainPress?.(d as DomainKey)}
+            disabled={!onDomainPress}
+          >
             <Text style={styles.legendLabel}>{DOMAIN_LABELS[d as DomainKey]}</Text>
             <Text style={[styles.legendScore, { color: accentColor }]}>
               {(scores[d] ?? 0).toFixed(1)}
             </Text>
-          </View>
+            {onDomainPress && <Text style={styles.legendArrow}>›</Text>}
+          </TouchableOpacity>
         ))}
       </View>
     </View>
@@ -124,6 +136,7 @@ export default function RadarChart({ scores, size = 280, accentColor = '#22c55e'
 const styles = StyleSheet.create({
   legend: { marginTop: 12, gap: 4 },
   legendRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 2 },
-  legendLabel: { color: '#888', fontSize: 13 },
+  legendLabel: { color: '#888', fontSize: 13, flex: 1 },
   legendScore: { fontSize: 13, fontWeight: '600' },
+  legendArrow: { color: '#444', fontSize: 16, marginLeft: 6 },
 });

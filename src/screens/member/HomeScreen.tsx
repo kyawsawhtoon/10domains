@@ -63,19 +63,31 @@ export default function HomeScreen() {
       )}
 
       <View style={styles.chartContainer}>
-        <RadarChart scores={scores ?? {}} size={280} />
+        <RadarChart
+          scores={scores ?? {}}
+          size={280}
+          onDomainPress={(domain) => navigation.navigate('DomainDetail', { domain })}
+        />
       </View>
 
       <TouchableOpacity style={styles.logButton} onPress={() => navigation.navigate('LogWorkout')}>
         <Text style={styles.logButtonText}>+ Log Personal Workout</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.challengeButton}
-        onPress={() => navigation.navigate('ActiveChallenges')}
-      >
-        <Text style={styles.challengeButtonText}>View Active Challenges</Text>
-      </TouchableOpacity>
+      <View style={styles.secondaryRow}>
+        <TouchableOpacity
+          style={[styles.secondaryButton, { flex: 1 }]}
+          onPress={() => navigation.navigate('ActiveChallenges')}
+        >
+          <Text style={styles.secondaryButtonText}>Challenges</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.secondaryButton, { flex: 1 }]}
+          onPress={() => navigation.navigate('WorkoutHistory')}
+        >
+          <Text style={styles.secondaryButtonText}>History</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -105,12 +117,13 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   logButtonText: { color: '#fff', fontSize: 17, fontWeight: '700' },
-  challengeButton: {
+  secondaryRow: { flexDirection: 'row', gap: 10 },
+  secondaryButton: {
     borderRadius: 14,
     padding: 18,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#2a2a2a',
   },
-  challengeButtonText: { color: '#888', fontSize: 17 },
+  secondaryButtonText: { color: '#888', fontSize: 16 },
 });

@@ -15,6 +15,7 @@ import SignInScreen from '../screens/auth/SignInScreen';
 import GroupDashboardScreen from '../screens/coach/GroupDashboardScreen';
 import CreateChallengeScreen from '../screens/coach/CreateChallengeScreen';
 import ChallengeResultsScreen from '../screens/coach/ChallengeResultsScreen';
+import MemberProfileScreen from '../screens/coach/MemberProfileScreen';
 
 // Member screens
 import HomeScreen from '../screens/member/HomeScreen';
@@ -22,6 +23,8 @@ import LogWorkoutScreen from '../screens/member/LogWorkoutScreen';
 import ActiveChallengesScreen from '../screens/member/ActiveChallengesScreen';
 import SubmitChallengeScreen from '../screens/member/SubmitChallengeScreen';
 import GroupLeaderboardScreen from '../screens/member/GroupLeaderboardScreen';
+import DomainDetailScreen from '../screens/member/DomainDetailScreen';
+import WorkoutHistoryScreen from '../screens/member/WorkoutHistoryScreen';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const CoachStack = createNativeStackNavigator<CoachStackParamList>();
@@ -59,7 +62,7 @@ function CoachNavigator() {
       />
       <CoachStack.Screen
         name="MemberProfile"
-        component={() => null}
+        component={MemberProfileScreen}
         options={{ title: 'Athlete' }}
       />
       <CoachStack.Screen
@@ -98,13 +101,13 @@ function MemberNavigator() {
       />
       <MemberStack.Screen
         name="DomainDetail"
-        component={() => null}
+        component={DomainDetailScreen}
         options={{ title: 'Domain' }}
       />
       <MemberStack.Screen
         name="WorkoutHistory"
-        component={() => null}
-        options={{ title: 'History' }}
+        component={WorkoutHistoryScreen}
+        options={{ title: 'Workout History' }}
       />
       <MemberStack.Screen
         name="GroupLeaderboard"
