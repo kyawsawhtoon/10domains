@@ -14,10 +14,14 @@ import SignInScreen from '../screens/auth/SignInScreen';
 // Coach screens
 import GroupDashboardScreen from '../screens/coach/GroupDashboardScreen';
 import CreateChallengeScreen from '../screens/coach/CreateChallengeScreen';
+import ChallengeResultsScreen from '../screens/coach/ChallengeResultsScreen';
 
 // Member screens
 import HomeScreen from '../screens/member/HomeScreen';
 import LogWorkoutScreen from '../screens/member/LogWorkoutScreen';
+import ActiveChallengesScreen from '../screens/member/ActiveChallengesScreen';
+import SubmitChallengeScreen from '../screens/member/SubmitChallengeScreen';
+import GroupLeaderboardScreen from '../screens/member/GroupLeaderboardScreen';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const CoachStack = createNativeStackNavigator<CoachStackParamList>();
@@ -60,7 +64,7 @@ function CoachNavigator() {
       />
       <CoachStack.Screen
         name="ChallengeResults"
-        component={() => null}
+        component={ChallengeResultsScreen}
         options={{ title: 'Results' }}
       />
     </CoachStack.Navigator>
@@ -84,13 +88,13 @@ function MemberNavigator() {
       />
       <MemberStack.Screen
         name="ActiveChallenges"
-        component={() => null}
+        component={ActiveChallengesScreen}
         options={{ title: 'Challenges' }}
       />
       <MemberStack.Screen
         name="SubmitChallenge"
-        component={() => null}
-        options={{ title: 'Submit' }}
+        component={SubmitChallengeScreen}
+        options={{ title: 'Submit Results' }}
       />
       <MemberStack.Screen
         name="DomainDetail"
@@ -104,7 +108,7 @@ function MemberNavigator() {
       />
       <MemberStack.Screen
         name="GroupLeaderboard"
-        component={() => null}
+        component={GroupLeaderboardScreen}
         options={{ title: 'Leaderboard' }}
       />
     </MemberStack.Navigator>
